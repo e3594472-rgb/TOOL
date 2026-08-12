@@ -17,8 +17,8 @@ const modeComponents = {
   question: QuestionPicker,
 }
 
-const starterStudents = ['Anna', 'Max', 'Sophie', 'Leo', 'Emma', 'Daniel', 'Kate', 'Ksenya']
-const starterQuestions = [
+const previousDemoStudents = ['Anna', 'Max', 'Sophie', 'Leo', 'Emma', 'Daniel', 'Kate', 'Ksenya']
+const previousDemoQuestions = [
   'What do you usually do at weekends?',
   'Would you rather live in the city or in the countryside?',
   'What is your favourite way to relax?',
@@ -27,16 +27,28 @@ const starterQuestions = [
   'If you could learn any new skill, what would you choose?',
 ]
 
+const starterStudents = ['Roma', 'Vika', 'Varya', 'Mark', 'Lera']
+const starterQuestions = [
+  'Is summer your favourite season?',
+  'What is your favourite summer activity?',
+  'Can you swim?',
+  'Which is better for you: the sea or the swimming pool?',
+  'What is your favourite summer food?',
+  'What do you do on sunny days?',
+]
+
 function seedStarterDataOnce() {
-  const marker = 'pick-speak-starter-data-v1'
+  const marker = 'pick-speak-starter-data-v2'
   try {
     if (localStorage.getItem(marker)) return
     const storedStudents = localStorage.getItem('pick-speak-students')
     const storedQuestions = localStorage.getItem('pick-speak-questions')
-    if (storedStudents === null || storedStudents === '[]') {
+    const hasOldDemoStudents = storedStudents === JSON.stringify(previousDemoStudents)
+    const hasOldDemoQuestions = storedQuestions === JSON.stringify(previousDemoQuestions)
+    if (storedStudents === null || storedStudents === '[]' || hasOldDemoStudents) {
       localStorage.setItem('pick-speak-students', JSON.stringify(starterStudents))
     }
-    if (storedQuestions === null || storedQuestions === '[]') {
+    if (storedQuestions === null || storedQuestions === '[]' || hasOldDemoQuestions) {
       localStorage.setItem('pick-speak-questions', JSON.stringify(starterQuestions))
     }
     localStorage.setItem(marker, '1')
