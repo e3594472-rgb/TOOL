@@ -17,16 +17,6 @@ const modeComponents = {
   question: QuestionPicker,
 }
 
-const previousDemoStudents = ['Anna', 'Max', 'Sophie', 'Leo', 'Emma', 'Daniel', 'Kate', 'Ksenya']
-const previousDemoQuestions = [
-  'What do you usually do at weekends?',
-  'Would you rather live in the city or in the countryside?',
-  'What is your favourite way to relax?',
-  'What would you like to learn in the future?',
-  'If you could travel anywhere, where would you go?',
-  'If you could learn any new skill, what would you choose?',
-]
-
 const starterStudents = ['Roma', 'Vika', 'Varya', 'Mark', 'Lera']
 const starterQuestions = [
   'Is summer your favourite season?',
@@ -38,19 +28,11 @@ const starterQuestions = [
 ]
 
 function seedStarterDataOnce() {
-  const marker = 'pick-speak-starter-data-v2'
+  const marker = 'pick-speak-class-data-v3'
   try {
     if (localStorage.getItem(marker)) return
-    const storedStudents = localStorage.getItem('pick-speak-students')
-    const storedQuestions = localStorage.getItem('pick-speak-questions')
-    const hasOldDemoStudents = storedStudents === JSON.stringify(previousDemoStudents)
-    const hasOldDemoQuestions = storedQuestions === JSON.stringify(previousDemoQuestions)
-    if (storedStudents === null || storedStudents === '[]' || hasOldDemoStudents) {
-      localStorage.setItem('pick-speak-students', JSON.stringify(starterStudents))
-    }
-    if (storedQuestions === null || storedQuestions === '[]' || hasOldDemoQuestions) {
-      localStorage.setItem('pick-speak-questions', JSON.stringify(starterQuestions))
-    }
+    localStorage.setItem('pick-speak-students', JSON.stringify(starterStudents))
+    localStorage.setItem('pick-speak-questions', JSON.stringify(starterQuestions))
     localStorage.setItem(marker, '1')
   } catch {
     // The hook below still supplies starter data when localStorage is unavailable.
