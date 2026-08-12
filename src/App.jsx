@@ -20,20 +20,25 @@ const modeComponents = {
 const starterStudents = ['Roma', 'Vika', 'Varya', 'Mark', 'Lera']
 const starterQuestions = [
   'Is summer your favourite season?',
-  'What is your favourite summer activity?',
+  'What do you usually do in summer?',
   'Can you swim?',
-  'Which is better for you: the sea or the swimming pool?',
-  'What is your favourite summer food?',
-  'What do you do on sunny days?',
+  'Which is better: the sea or the swimming pool?',
+  'What food do you like to eat in summer?',
+  'Where do you go on holidays?',
 ]
 
 function seedStarterDataOnce() {
   const marker = 'pick-speak-class-data-v3'
+  const questionsMarker = 'pick-speak-questions-v4'
   try {
-    if (localStorage.getItem(marker)) return
-    localStorage.setItem('pick-speak-students', JSON.stringify(starterStudents))
-    localStorage.setItem('pick-speak-questions', JSON.stringify(starterQuestions))
-    localStorage.setItem(marker, '1')
+    if (!localStorage.getItem(marker)) {
+      localStorage.setItem('pick-speak-students', JSON.stringify(starterStudents))
+      localStorage.setItem(marker, '1')
+    }
+    if (!localStorage.getItem(questionsMarker)) {
+      localStorage.setItem('pick-speak-questions', JSON.stringify(starterQuestions))
+      localStorage.setItem(questionsMarker, '1')
+    }
   } catch {
     // The hook below still supplies starter data when localStorage is unavailable.
   }
