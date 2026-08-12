@@ -25,7 +25,7 @@ export const tools = [
   { id: 'question', title: 'Question Only', short: 'Question', description: 'Pick a random speaking question', cta: 'Pick a question' },
 ]
 
-const toolImage = (id) => `/tool-images/${id === 'teams' ? 'teams-v2' : id}.png`
+const toolImage = (id) => `${import.meta.env.BASE_URL}tool-images/${id === 'teams' ? 'teams-v2' : id}.png`
 
 export function Header({ activeTool, onNavigate, soundOn, onToggleSound }) {
   return (
