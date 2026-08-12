@@ -17,14 +17,44 @@ const modeComponents = {
   question: QuestionPicker,
 }
 
+const starterStudents = ['Anna', 'Max', 'Sophie', 'Leo', 'Emma', 'Daniel', 'Kate', 'Ksenya']
+const starterQuestions = [
+  'What do you usually do at weekends?',
+  'Would you rather live in the city or in the countryside?',
+  'What is your favourite way to relax?',
+  'What would you like to learn in the future?',
+  'If you could travel anywhere, where would you go?',
+  'If you could learn any new skill, what would you choose?',
+]
+
+function seedStarterDataOnce() {
+  const marker = 'pick-speak-starter-data-v1'
+  try {
+    if (localStorage.getItem(marker)) return
+    const storedStudents = localStorage.getItem('pick-speak-students')
+    const storedQuestions = localStorage.getItem('pick-speak-questions')
+    if (storedStudents === null || storedStudents === '[]') {
+      localStorage.setItem('pick-speak-students', JSON.stringify(starterStudents))
+    }
+    if (storedQuestions === null || storedQuestions === '[]') {
+      localStorage.setItem('pick-speak-questions', JSON.stringify(starterQuestions))
+    }
+    localStorage.setItem(marker, '1')
+  } catch {
+    // The hook below still supplies starter data when localStorage is unavailable.
+  }
+}
+
+seedStarterDataOnce()
+
 function modeFromHash() {
   const hash = window.location.hash.replace('#/', '')
   return modeComponents[hash] ? hash : 'home'
 }
 
 export default function App() {
-  const [students, setStudents] = useStoredState('pick-speak-students', [])
-  const [questions, setQuestions] = useStoredState('pick-speak-questions', [])
+  const [students, setStudents] = useStoredState('pick-speak-students', starterStudents)
+  const [questions, setQuestions] = useStoredState('pick-speak-questions', starterQuestions)
   const [soundOn, setSoundOn] = useStoredState('pick-speak-sound', true)
   const [activeTool, setActiveTool] = useState(modeFromHash)
 
